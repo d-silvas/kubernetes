@@ -41,7 +41,8 @@ metadata:
   name: mongodb-service
 spec:
   selector:
-    app: mongodb # Matches template's label
+    # Matches spec.template.metadata.labels of a Deployment
+    app: mongodb
   ports:
     - protocol: TCP
       port: 27017

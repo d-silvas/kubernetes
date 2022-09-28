@@ -1,0 +1,12 @@
+# This is an internal service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongoexpress-service
+spec:
+  selector:
+    app: mongoexpress
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081

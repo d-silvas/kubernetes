@@ -1,0 +1,27 @@
+# This configuration file by itself won't do anything. We need to install
+# an "Ingress Controller". Which is another pod that runs in our
+# Kubernetes node and will evaluate all the ingress rules we have added
+# to our cluster and manage all the redirections.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mongoexpress-ingress
+spec:
+  rules:
+    # Has to be a valid hostname. Must be mapped to a node's IP address
+    # (the "entrypoint")
+    - host: myapp.com
+      # This "http" is the protocol that's used to forward a request from
+      # the ingress to the interal service (step 2). It's not the protocol
+      # used by the browser that visits the website (step 1)
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                # Matches metadata.name of an internal service
+                name: mongoexpress-service
+                # Matches spec.ports.port of an internal service
+                port:
+                  number: 8081
